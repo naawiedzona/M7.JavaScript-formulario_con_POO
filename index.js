@@ -11,13 +11,12 @@ class UI {
   static addProductToList(product) {
     const list = document.querySelector("#product-list");
     const row = document.createElement("tr");
-
     row.innerHTML = `
-    <td>${product.title}</td>
-    <td>${product.author}</td>
-    <td>${product.idnumber}</td>
-    <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
-    `;
+      <td class="titleValue">${product.title}</td>
+      <td class="authorValue">${product.author}</td>
+      <td class="idnumberValue">${product.idnumber}</td>
+      <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+      `;
     list.appendChild(row);
   }
   //borra el producto de la lista
@@ -28,17 +27,14 @@ class UI {
   }
 
   static showAlert(message, className) {
-    const div = document.createElement("div");
-    div.className = `alert alert-${className}`;
-    div.appendChild(document.createTextNode(message));
-    const container = document.querySelector(".container");
-    const form = document.querySelector("#product-form");
-
-    //dentro de container insert div antes de form
-    container.insertBefore(div, form);
+    const alertBox = document.querySelector("#alert-box");
+    alertBox.className = `alert alert-${className}`;
+    document.querySelector(
+      "#alert-box"
+    ).innerHTML = `<div id="cajaa">${message}</div>`;
 
     // alert desaparece despues de 2 segundos
-    setTimeout(() => document.querySelector(".alert").remove(), 2000);
+    setTimeout(() => document.querySelector("#cajaa").remove(), 2000);
   }
 
   static clearAll() {
@@ -49,7 +45,6 @@ class UI {
 document.querySelector("#product-form").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // el valor de cada campo
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
   const idnumber = document.querySelector("#idnumber").value;
@@ -58,7 +53,35 @@ document.querySelector("#product-form").addEventListener("submit", (e) => {
     UI.showAlert("Rellena todos los campos", "danger");
   } else {
     // crear producto
+
     const product = new Product(title, author, idnumber);
+
+    let createdTitles = document.querySelectorAll(".titleValue");
+    let createdAuthors = document.querySelectorAll(".authorValue");
+    let createdProductId = document.querySelectorAll(".idnumberValue");
+
+    if (createdTitles.length > 0) {
+      for (let i = 0; i < createdTitles.length; i++) {
+        if (createdTitles[i].innerText.includes(product.title)) {
+          UI.showAlert("Este producto ya existe", "danger");
+          return;
+        }
+      }
+
+      for (let i = 0; i < createdAuthors.length; i++) {
+        if (createdAuthors[i].innerText.includes(product.author)) {
+          UI.showAlert("Este autor ya existe", "danger");
+          return;
+        }
+      }
+
+      for (let i = 0; i < createdProductId.length; i++) {
+        if (createdProductId[i].innerText.includes(product.idnumber)) {
+          UI.showAlert("Este id ya existe", "danger");
+          return;
+        }
+      }
+    }
 
     // añadir producto a la lista
     UI.addProductToList(product);
@@ -73,6 +96,5 @@ document.querySelector("#product-form").addEventListener("submit", (e) => {
 //borra producto de la lista
 document.querySelector("#product-list").addEventListener("click", (e) => {
   UI.deleteProduct(e.target);
-
   UI.showAlert("Producto borrado correctamente", "primary");
 });

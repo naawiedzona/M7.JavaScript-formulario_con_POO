@@ -7,18 +7,25 @@
 
 body{
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(188, 236, 236);
 }
 h1{
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-    color: rgb(41, 92, 187);
+    color: #4c956c;
+    margin-bottom: 70px;
+}
+
+#alert-box{
+    background-color: white;
+    border: 0px;
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 80px;
+    font-size: 20px;
 }
 
 h2{
     text-align: center;
-    margin-top: 50px;
-    color: rgb(41, 92, 187);
+    margin-top: 70px;
+    color: #4c956c;
 }
 form{
     width: 60%;
@@ -26,12 +33,14 @@ form{
 
 
 label{
-    font-size: 1.2em;
+  font-size: 1.1em;
+  color: #4c956c;
 }
 
 input{
     margin-top: 10px;
     margin-bottom: 10px;
+    opacity: 0.6;  
 }
 
 .table{
@@ -43,10 +52,20 @@ th,td{
 }
 .btnsubmit{
     width: 100%;
+    border: 1px solid #4c956c;
+    color: #4c956c;
+    
+}
+
+.btnsubmit:hover{
+    background-color: #4c956c;
+    color: white;
     
 }
 .alert{
     width: 60%;
 }
-
+#cajaa{
+    text-align: center;
+}
 
